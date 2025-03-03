@@ -11,6 +11,7 @@ function verificarIntento(){
     
     if (numeroDeUsuario === numeroSecreto) {
         asignarTextoElemento('p', `Acertaste el numero en ${intentos} ${intentos == 1 ? 'vez' : 'veces'}`);
+        document.getElementById('intentar').setAttribute('disabled', 'true');
         document.getElementById('reiniciar').removeAttribute('disabled');
     }else if (numeroDeUsuario > numeroSecreto) {
         //suario no acerto
@@ -60,6 +61,7 @@ function reiniciarJuego() {
     limpiarCaja();
     condicionesIniciales();
     document.querySelector('#reiniciar').setAttribute('disabled', 'true');
+    document.querySelector('#intentar').removeAttribute('disabled');
 }
 
 condicionesIniciales();
