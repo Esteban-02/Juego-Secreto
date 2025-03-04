@@ -2,11 +2,11 @@ let listaNumerosSorteados = [];
 let numeroSecreto = 0;
 let intentos = 1;
 let numeroMaximo = 10;
+let juegoTerminado = false;
 
 
 function verificarIntento(){
-    console.log(intentos);
-    
+
     let numeroDeUsuario = parseInt(document.getElementById('valorUsuario').value); 
     
     if (numeroDeUsuario === numeroSecreto) {
@@ -22,7 +22,6 @@ function verificarIntento(){
         limpiarCaja();
     }
     intentos++;
-    console.log(typeof(numeroSecreto));
 }
 
 function asignarTextoElemento(elemento, texto){
@@ -32,16 +31,14 @@ function asignarTextoElemento(elemento, texto){
 
 function generarNumeroSecreto() {
     let numeroGenerado =  Math.floor(Math.random()*10)+1;
-    console.log(numeroGenerado);
-    console.log(listaNumerosSorteados);
 
     if (listaNumerosSorteados.length == numeroMaximo) {
-        asignarTextoElemento('p', 'Ya se sortearon todos los numeros posibles');
+        asignarTextoElemento('p', 'Has terminado el juego \nFelicidades!!!');
+        juegoTerminado = true;
     }else if (listaNumerosSorteados.includes(numeroGenerado)) {
         return generarNumeroSecreto();
     }else{
-        listaNumerosSorteados.push(numeroGenerado);
-        
+        listaNumerosSorteados.push(numeroGenerado);     
         return numeroGenerado;
     }
 }
@@ -62,6 +59,9 @@ function reiniciarJuego() {
     condicionesIniciales();
     document.querySelector('#reiniciar').setAttribute('disabled', 'true');
     document.querySelector('#intentar').removeAttribute('disabled');
+    if (juegoTerminado == true) {
+        document.querySelector('#intentar').setAttribute('disabled', 'true');
+    }
 }
 
 condicionesIniciales();
